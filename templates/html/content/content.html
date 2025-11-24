@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Content Component</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- THIẾT LẬP CHUNG (Copy từ Header để đồng bộ) --- */
+        :root {
+            --bg-dark: #0f172a;       /* Slate 900 */
+            --bg-card: #1e293b;       /* Slate 800 */
+            --text-main: #f8fafc;     /* Slate 50 */
+            --text-muted: #94a3b8;    /* Slate 400 */
+            --accent: #3b82f6;        /* Blue 500 */
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --border: rgba(255,255,255,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        a { text-decoration: none; transition: all 0.2s; }
+
+        /* --- 1. HERO SECTION (SaaS Style) --- */
+        .hero-section {
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng nền Glow phía sau */
+        .hero-glow {
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+        
+        .hero-title span {
+            background: linear-gradient(to right, #3b82f6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 0 20px var(--accent-glow);
+            border: 1px solid transparent;
+        }
+        .btn-primary:hover { transform: translateY(-2px); background: #2563eb; }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+        /* --- 2. STATS / DASHBOARD PREVIEW --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 60px 0;
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .stat-item { text-align: center; }
+        .stat-num { font-size: 2.5rem; font-weight: 700; color: var(--text-main); display: block; }
+        .stat-label { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+
+        /* --- 3. FEATURES GRID (Card Style) --- */
+        .section-header { margin-bottom: 50px; text-align: center; }
+        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            padding: 32px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .icon-box {
+            width: 48px; height: 48px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
+        .feature-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* --- 4. FOOTER --- */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 80px 0 40px;
+            background: #0b1120;
+        }
+
+        .footer-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+        .footer-col { flex: 1; min-width: 200px; }
+        
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: white; margin-bottom: 20px; display: block; }
+        .footer-logo span { color: var(--accent); }
+        
+        .footer-heading { color: white; font-size: 1rem; font-weight: 600; margin-bottom: 20px; }
+        
+        .footer-links li { margin-bottom: 12px; list-style: none; }
+        .footer-links a { color: var(--text-muted); font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--accent); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-glow"></div> <div class="container">
+                <span class="badge">Phiên bản 2.0 Đã ra mắt</span>
+                <h1 class="hero-title">
+                    Quản lý Đào tạo & Nghiên cứu <br>
+                    <span>Dành cho Kỷ nguyên Số</span>
+                </h1>
+                <p class="hero-desc">
+                    Nền tảng tích hợp tất cả công cụ giảng viên và sinh viên cần. 
+                    Từ đăng ký học phần, tra cứu điểm đến quản lý đề tài nghiên cứu khoa học.
+                </p>
+                <div class="hero-btns">
+                    <a href="#" class="btn btn-primary">Truy cập Portal</a>
+                    <a href="#" class="btn btn-secondary">Tìm hiểu thêm</a>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-num">4.5k+</span>
+                        <span class="stat-label">Sinh viên</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">120+</span>
+                        <span class="stat-label">Giảng viên</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">35</span>
+                        <span class="stat-label">Phòng Lab</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">98%</span>
+                        <span class="stat-label">Hài lòng</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tính năng cốt lõi</h2>
+                <p style="color: var(--text-muted)">Mọi thứ bạn cần để quản lý học tập hiệu quả</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <h3 class="feature-title">Phân tích Dữ liệu</h3>
+                    <p class="feature-desc">Theo dõi tiến độ học tập và kết quả nghiên cứu thông qua các biểu đồ trực quan thời gian thực.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </div>
+                    <h3 class="feature-title">Lịch biểu Thông minh</h3>
+                    <p class="feature-desc">Tự động sắp xếp lịch học, lịch thi và nhắc nhở deadline bài tập quan trọng.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3 class="feature-title">Cộng đồng Sinh viên</h3>
+                    <p class="feature-desc">Kết nối với các nhóm nghiên cứu, câu lạc bộ và cựu sinh viên thành đạt.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc mừng</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-card">
+            <h1>🎉 Chúc mừng!</h1>
+            <p>Bạn đã đăng nhập thành công.</p>
+            <div id="userInfo"></div>
+            <button onclick="logout()">Đăng xuất</button>
+        </div>
+    </div>
+    <script>
+        // Kiểm tra đăng nhập
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        if (!token) {
+            window.location.href = '/login.html';
+        }
+
+        // Hiển thị thông tin người dùng
+        document.getElementById('userInfo').innerHTML = `
+            <p><strong>Tên:</strong> ${user.username}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Vai trò:</strong> ${user.role === 'superadmin' ? 'Super Admin' : 'Tenant Admin'}</p>
+        `;
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login.html';
+        }
+    </script>
+</body>
+</html>

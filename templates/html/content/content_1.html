@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Content - Tech Grid Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- COPY VARIABLES TỪ HEADER TECH GRID --- */
+        :root {
+            --bg: #050505;          /* Đen gần tuyệt đối */
+            --bg-panel: #0a0a0a;
+            --border: #333333;      /* Viền xám đậm đặc trưng */
+            --text: #ededed;
+            --text-dim: #888888;
+            --accent: #8b5cf6;      /* Tím */
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            line-height: 1.5;
+        }
+
+        /* --- UTILITIES --- */
+        .mono { font-family: var(--font-mono); }
+        .text-accent { color: var(--accent); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Họa tiết nền lưới (Grid Background) */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, #1a1a1a 1px, transparent 1px),
+                              linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* --- 1. HERO SECTION (CLI / Developer Style) --- */
+        .hero-tech {
+            padding: 100px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .pill-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            border: 1px solid #333;
+            background: rgba(139, 92, 246, 0.1);
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .cmd-box {
+            background: #111;
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: #aaa;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .cmd-box:hover { border-color: var(--text-dim); color: #fff; }
+        .cmd-prompt { color: var(--accent); }
+
+        /* --- 2. DASHBOARD GRID (Bento Grid Style) --- */
+        .section-grid {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 200px); /* Chiều cao cố định */
+            gap: 1px; /* Tạo khe hở để lộ màu nền border */
+            background: var(--border); /* Màu nền chính là màu viền */
+            border: 1px solid var(--border);
+        }
+
+        .bento-item {
+            background: var(--bg-panel);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background 0.2s;
+        }
+        .bento-item:hover { background: #0f0f0f; }
+
+        /* Item lớn chiếm 2 cột */
+        .span-2 { grid-column: span 2; }
+        .span-row-2 { grid-row: span 2; }
+
+        .bento-icon {
+            width: 40px; height: 40px;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: var(--text);
+        }
+
+        .bento-stat {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 500;
+            margin-top: auto;
+            color: var(--text);
+        }
+        .bento-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 4px;
+        }
+
+        /* --- 3. FEATURE LIST (Table style) --- */
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 60px;
+        }
+        
+        .feature-table th {
+            text-align: left;
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-dim);
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .feature-table td {
+            padding: 20px 16px;
+            border-bottom: 1px solid #1a1a1a;
+            color: var(--text);
+        }
+        .feature-table tr:last-child td { border-bottom: none; }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* --- FOOTER --- */
+        .footer-tech {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+            .span-2 { grid-column: span 1; }
+            .span-row-2 { grid-row: span 1; min-height: 200px; }
+            .hero-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="bg-grid hero-tech">
+        <div class="container">
+            <span class="pill-tag">v2.4.0 RELEASED</span>
+            <h1 class="hero-title">Hệ điều hành cho<br>Khoa Công Nghệ</h1>
+            <p class="hero-sub">
+                Quản lý sinh viên, lịch học và đề tài nghiên cứu với tốc độ cao. 
+                Tích hợp API, Real-time Database và bảo mật Enterprise.
+            </p>
+            
+            <div class="cmd-box">
+                <span class="cmd-prompt">$</span>
+                <span>npm install khoa-platform@latest</span>
+                <svg style="margin-left:auto" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-grid">
+        <div class="container">
+            <h3 style="margin-bottom: 24px; font-weight: 500;">Real-time Analytics</h3>
+            
+            <div class="bento-grid">
+                <div class="bento-item span-2">
+                    <div class="bento-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <div>
+                        <div class="bento-stat">4,289</div>
+                        <div class="bento-label">Sinh viên đang hoạt động</div>
+                    </div>
+                </div>
+
+                <div class="bento-item">
+                    <div class="bento-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <div>
+                        <div class="bento-stat">128</div>
+                        <div class="bento-label">Lớp tín chỉ mở</div>
+                    </div>
+                </div>
+
+                <div class="bento-item">
+                    <div class="bento-icon text-accent">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                    <div>
+                        <div class="bento-stat text-accent">99.9%</div>
+                        <div class="bento-label">Hệ thống ổn định</div>
+                    </div>
+                </div>
+
+                <div class="bento-item">
+                    <div class="bento-label mono">AVG. SCORE</div>
+                    <div class="bento-stat">7.8</div>
+                </div>
+                <div class="bento-item">
+                    <div class="bento-label mono">REQUESTS/SEC</div>
+                    <div class="bento-stat">2.4k</div>
+                </div>
+                 <div class="bento-item span-2">
+                    <div class="bento-label mono">NGHIÊN CỨU KHOA HỌC</div>
+                    <div style="margin-top: auto;">
+                        <div style="height: 4px; background: #333; width: 100%; border-radius: 2px; margin-bottom: 10px; overflow: hidden;">
+                            <div style="height: 100%; width: 65%; background: var(--accent);"></div>
+                        </div>
+                        <div class="bento-label">65/100 Đề tài hoàn thành</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-grid" style="border: none;">
+        <div class="container">
+            <h3 style="margin-bottom: 10px; font-weight: 500;">Modules Hệ Thống</h3>
+            
+            <table class="feature-table">
+                <thead>
+                    <tr>
+                        <th>MODULE NAME</th>
+                        <th>VERSION</th>
+                        <th>STATUS</th>
+                        <th style="text-align: right;">LAST DEPLOY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong style="color: white;">Student Portal</strong><br><span style="font-size: 0.8rem; color: #666;">Cổng thông tin sinh viên</span></td>
+                        <td class="mono">v2.4.0</td>
+                        <td><span class="status-badge">Operational</span></td>
+                        <td class="mono" style="text-align: right;">2h ago</td>
+                    </tr>
+                    <tr>
+                        <td><strong style="color: white;">E-Learning Core</strong><br><span style="font-size: 0.8rem; color: #666;">Hệ thống học trực tuyến</span></td>
+                        <td class="mono">v1.8.2</td>
+                        <td><span class="status-badge">Operational</span></td>
+                        <td class="mono" style="text-align: right;">1d ago</td>
+                    </tr>
+                    <tr>
+                        <td><strong style="color: white;">Research Database</strong><br><span style="font-size: 0.8rem; color: #666;">Kho dữ liệu nghiên cứu</span></td>
+                        <td class="mono">v3.0.1</td>
+                        <td><span class="status-badge" style="color: #eab308; background: rgba(234, 179, 8, 0.1); border-color: rgba(234, 179, 8, 0.2);">Maintenance</span></td>
+                        <td class="mono" style="text-align: right;">5d ago</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</body>
+</html>

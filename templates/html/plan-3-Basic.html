@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - Khoa [Tên Khoa] | Modern Dark</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* == CÀI ĐẶT BIẾN VÀ CHUNG == */
+        :root {
+            --dark-bg: #111827; /* Nền tối (xanh than) */
+            --dark-bg-secondary: #1F2937; /* Nền card, header */
+            --text-primary: #f9fafb; /* Chữ chính (gần trắng) */
+            --text-secondary: #9ca3af; /* Chữ phụ (xám) */
+            --accent: #3b82f6; /* Màu nhấn (xanh dương) */
+            --accent-hover: #60a5fa;
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --container-width: 1240px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--accent);
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* == HEADER (Từ model Tenants) == */
+        .header-modern {
+            /* Hiệu ứng Glassmorphism cho header */
+            background: rgba(31, 41, 55, 0.7); /* var(--dark-bg-secondary) với 70% opacity */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-modern .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-modern {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .nav-modern ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-modern li {
+            margin-left: 30px;
+        }
+
+        .nav-modern a {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .nav-modern a:hover, .nav-modern a.active {
+            color: var(--text-primary);
+        }
+
+        /* == HERO (Banner chính) == */
+        .hero-modern {
+            background: linear-gradient(rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.8)), url('https://via.placeholder.com/1600x700.png?text=Hinh+Anh+Khoa');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero-modern h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            /* Hiệu ứng gradient cho chữ */
+            background: linear-gradient(90deg, #3b82f6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-modern p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+
+        .cta-button-modern {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button-modern:hover {
+            background: var(--accent-hover);
+            color: var(--text-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* == SECTION (Chung) == */
+        .section {
+            padding: 80px 0;
+        }
+        
+        /* Hiệu ứng dải màu phân cách các section */
+        .section-divider {
+            height: 2px;
+            border: 0;
+            background: linear-gradient(90deg, var(--accent), var(--dark-bg));
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title span {
+            color: var(--accent);
+        }
+
+        /* == TIN TỨC (Từ model News) - Hiệu ứng Glassmorphism == */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .glass-card {
+            /* Hiệu ứng Glassmorphism */
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-glass);
+            
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .card-date {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0 0 15px 0;
+        }
+        
+        .card-title a {
+            color: var(--text-primary);
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* == SỰ KIỆN (Từ model Events) == */
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--dark-bg-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-glass);
+        }
+        
+        .event-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .event-date {
+            background-color: var(--accent);
+            color: var(--text-primary);
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 100px;
+            align-self: stretch;
+        }
+
+        .event-date-day {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .event-date-month {
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .event-content {
+            padding: 20px 25px;
+        }
+
+        .event-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .event-location {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* == FOOTER (Từ model Tenants) == */
+        .footer-modern {
+            background-color: var(--dark-bg-secondary);
+            color: var(--text-secondary);
+            padding: 60px 0 30px 0;
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .footer-grid-modern {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-modern h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .footer-modern p, .footer-modern li {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+        
+        .footer-modern ul {
+            list-style: none;
+        }
+
+        .footer-modern a {
+            color: var(--text-secondary);
+        }
+        
+        .footer-modern a:hover {
+            color: var(--accent-hover);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid var(--border-glass);
+            padding-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* == Responsive (Thiết kế cho di động) == */
+        @media (max-width: 992px) {
+            .nav-modern { display: none; } /* Cần JS để làm menu-toggle */
+            .grid-layout { grid-template-columns: 1fr 1fr; }
+            .footer-grid-modern { grid-template-columns: 1fr 1fr; }
+            .hero-modern h1 { font-size: 2.8rem; }
+            .section-title { font-size: 2.2rem; }
+        }
+        
+        @media (max-width: 768px) {
+            .grid-layout, .footer-grid-modern {
+                grid-template-columns: 1fr;
+            }
+            .hero-modern h1 { font-size: 2.2rem; }
+            .hero-modern p { font-size: 1rem; }
+            
+            .event-item {
+                flex-direction: column;
+            }
+            .event-date {
+                width: 100%;
+                flex-direction: row;
+                gap: 15px;
+                align-items: center;
+            }
+            .event-date-day { font-size: 2rem; }
+            .event-date-month { font-size: 0.9rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header-modern">
+        <div class="container">
+            <a href="/" class="logo-modern">Khoa [Tên Khoa]</a>
+            <nav class="nav-modern">
+                <ul>
+                    <li><a href="/" class="active">Trang chủ</a></li>
+                    <li><a href="/gioi-thieu">Giới thiệu</a></li>
+                    <li><a href="/dao-tao">Đào tạo</a></li>
+                    <li><a href="/giang-vien">Giảng viên</a></li>
+                    <li><a href="/nghien-cuu">Nghiên cứu</a></li>
+                    <li><a href="/tin-tuc">Tin tức</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-modern">
+            <div class="container">
+                <h1>Khoa [Tên Khoa]</h1>
+                <p>Dẫn đầu xu hướng, Đào tạo chuyên sâu, Nghiên cứu sáng tạo. <br> Khám phá tương lai của bạn với chúng tôi.</p>
+                <a href="/tuyen-sinh" class="cta-button-modern">Tìm hiểu Tuyển sinh 2026</a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Tin tức <span>Nổi bật</span></h2>
+                <div class="grid-layout">
+
+                    <div class="glass-card">
+                        <p class="card-date">12 THÁNG 11, 2025</p>
+                        <h3 class="card-title"><a href="#">Hội thảo Khoa học Quốc tế về Trí tuệ Nhân tạo 2025</a></h3>
+                        <p class="card-description">Một sự kiện lớn quy tụ các chuyên gia hàng đầu trong lĩnh vực AI, chia sẻ những đột phá mới nhất...</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <p class="card-date">10 THÁNG 11, 2025</p>
+                        <h3 class="card-title"><a href="#">Sinh viên Khoa [Tên] vô địch cuộc thi Lập trình Quốc gia</a></h3>
+                        <p class="card-description">Đội tuyển của khoa đã xuất sắc vượt qua nhiều đối thủ mạnh để giành vị trí cao nhất... (Model: Achievements)</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <p class="card-date">08 THÁNG 11, 2025</p>
+                        <h3 class="card-title"><a href="#">Ký kết hợp tác (MOU) với Tập đoàn Công nghệ FPT</a></h3>
+                        <p class="card-description">Mở ra cơ hội thực tập và việc làm cho sinh viên, đồng thời thúc đẩy các dự án nghiên cứu chung...</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Sự kiện <span>Sắp diễn ra</span></h2>
+                <div class="event-list">
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="event-date-day">20</span>
+                            <span class="event-date-month">THG 11</span>
+                        </div>
+                        <div class="event-content">
+                            <h3 class="event-title"><a href="#">Workshop: "Xây dựng ứng dụng với React Native"</a></h3>
+                            <p class="event-location">Địa điểm: Hội trường E4, [Tên Khoa]</p>
+                        </div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="event-date-day">25</span>
+                            <span class="event-date-month">THG 11</span>
+                        </div>
+                        <div class="event-content">
+                            <h3 class="event-title"><a href="#">Ngày hội việc làm IT (IT Job Fair) 2025</a></h3>
+                            <p class="event-location">Địa điểm: Sảnh chính, [Tên Trường]</p>
+                        </div>
+                    </div>
+                    
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="event-date-day">05</span>
+                            <span class="event-date-month">THG 12</span>
+                        </div>
+                        <div class="event-content">
+                            <h3 class="event-title"><a href="#">Chung kết cuộc thi "AI & Robotics Challenge"</a></h3>
+                            <p class="event-location">Địa điểm: Phòng Lab 01, [Tên Khoa]</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="footer-grid-modern">
+                <div class="footer-col">
+                    <h4>Khoa [Tên Khoa]</h4>
+                    <p>
+                        <strong>Địa chỉ:</strong> [Lấy từ Tenants.address] <br>
+                        <strong>Điện thoại:</strong> [Lấy từ Tenants.phone] <br>
+                        <strong>Email:</strong> [Lấy từ Tenants.email]
+                    </p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Về Khoa</h4>
+                    <ul>
+                        <li><a href="/gioi-thieu">Giới thiệu</a></li>
+                        <li><a href="/giang-vien">Đội ngũ giảng viên</a></li>
+                        <li><a href="/thanh-tuu">Thành tựu (Achievements)</a></li>
+                        <li><a href="/lien-he">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Đào tạo</h4>
+                    <ul>
+                        <li><a href="#">Chương trình Cử nhân</a></li>
+                        <li><a href="#">Chương trình Thạc sĩ</a></li>
+                        <li><a href="#">Chương trình Tiến sĩ</a></li>
+                        <li><a href="#">Nghiên cứu (Research)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bản quyền thuộc về Khoa [Tên Khoa].</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

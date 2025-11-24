@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Footer Component</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CÀI ĐẶT MÀU SẮC (Đồng bộ với Header) --- */
+        :root {
+            --footer-bg: #0b1120;       /* Màu nền rất tối */
+            --footer-text: #94a3b8;     /* Màu chữ xám (Slate 400) */
+            --footer-title: #f8fafc;    /* Màu tiêu đề trắng (Slate 50) */
+            --accent: #3b82f6;          /* Màu xanh chủ đạo */
+            --accent-hover: #2563eb;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; }
+
+        /* --- CSS FOOTER --- */
+        .footer-saas {
+            background-color: var(--footer-bg);
+            border-top: 1px solid var(--border);
+            padding-top: 80px;
+            padding-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Layout chính: Grid 4 cột + 1 cột lớn */
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* Cột thông tin brand */
+        .brand-col {
+            padding-right: 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--footer-title);
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo svg { color: var(--accent); }
+        .footer-logo span { color: var(--accent); }
+
+        .brand-desc {
+            color: var(--footer-text);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* Form đăng ký tin tức (Đặc trưng SaaS) */
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-email {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            padding: 10px 16px;
+            border-radius: 6px;
+            color: white;
+            outline: none;
+            flex: 1;
+            font-family: inherit;
+            transition: border 0.2s;
+        }
+        .input-email:focus { border-color: var(--accent); }
+
+        .btn-submit {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn-submit:hover { background: var(--accent-hover); }
+
+        /* Các cột Link */
+        .footer-col h4 {
+            color: var(--footer-title);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+
+        .footer-links a {
+            color: var(--footer-text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--accent); }
+
+        /* --- FOOTER BOTTOM (Copyright & Social) --- */
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .copyright { color: var(--footer-text); font-size: 0.9rem; }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icon {
+            color: var(--footer-text);
+            width: 20px;
+            height: 20px;
+            transition: all 0.2s;
+        }
+        .social-icon:hover { color: white; transform: translateY(-2px); }
+
+        /* Badge trạng thái hệ thống (SaaS style) */
+        .system-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #10b981; /* Màu xanh lá */
+            background: rgba(16, 185, 129, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .status-dot {
+            width: 8px; height: 8px; background: #10b981; border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .footer-top { grid-template-columns: 1fr 1fr; }
+            .brand-col { grid-column: span 2; margin-bottom: 20px; }
+        }
+        @media (max-width: 600px) {
+            .footer-top { grid-template-columns: 1fr; }
+            .brand-col { grid-column: span 1; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <footer class="footer-saas">
+        <div class="container">
+            <div class="footer-top">
+                
+                <div class="brand-col">
+                    <a href="#" class="footer-logo">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        Khoa<span>SaaS</span>
+                    </a>
+                    <p class="brand-desc">
+                        Nền tảng quản lý giáo dục số 4.0. Đơn giản hóa quy trình đào tạo, kết nối sinh viên và giảng viên mọi lúc, mọi nơi.
+                    </p>
+                    
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Email nhận tin tức..." class="input-email">
+                        <button type="button" class="btn-submit">&rarr;</button>
+                    </form>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Về Chúng Tôi</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Giới thiệu chung</a></li>
+                        <li><a href="#">Đội ngũ giảng viên</a></li>
+                        <li><a href="#">Cơ sở vật chất</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Chương Trình</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Đại học chính quy</a></li>
+                        <li><a href="#">Thạc sĩ Khoa học</a></li>
+                        <li><a href="#">Đào tạo từ xa (E-learning)</a></li>
+                        <li><a href="#">Khóa học ngắn hạn</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Tài Nguyên</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Cổng sinh viên (Portal)</a></li>
+                        <li><a href="#">Tra cứu điểm thi</a></li>
+                        <li><a href="#">Biểu mẫu hành chính</a></li>
+                        <li><a href="#">Hỗ trợ kỹ thuật</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2025 Khoa SaaS Platform. All rights reserved.
+                    <br>
+                    <div style="margin-top:8px; opacity: 0.6; font-size: 0.85rem;">
+                        <a href="#" style="color:inherit">Điều khoản</a> • <a href="#" style="color:inherit">Bảo mật</a>
+                    </div>
+                </div>
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    System Stable
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-icon" title="Facebook">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="#" class="social-icon" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                    <a href="#" class="social-icon" title="Youtube">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

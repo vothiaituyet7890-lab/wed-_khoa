@@ -1,0 +1,230 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Tenants {
+  tenantid       Int              @id @default(autoincrement())
+  tenantname     String
+  domain         String?
+  htmlfilename   String?
+  email          String?
+  phone          String?
+  address        String?
+  status         String?          @default("active")
+  createdat      DateTime         @default(now())
+  updatedat      DateTime         @default(now())
+  
+  departments    Departments[]
+  lecturers      Lecturers[]
+  programs       Programs[]
+  research       ResearchProjects[]
+  news           News[]
+  events         Events[]
+  achievements   Achievements[]
+  accounts       TenantAccounts[]
+  subscriptions  Subscriptions[]
+  tenanttemplates TenantTemplates[]
+}
+
+model Departments {
+  departmentid   Int          @id @default(autoincrement())
+  tenantid       Int
+  departmentname String
+  description    String?
+  head           String?
+  createdat      DateTime     @default(now())
+  updatedat      DateTime     @default(now())
+
+  tenant         Tenants      @relation(fields: [tenantid], references: [tenantid])
+  lecturers      Lecturers[]
+  programs       Programs[]
+}
+
+model Lecturers {
+  lecturerid   Int       @id @default(autoincrement())
+  tenantid     Int
+  name         String
+  email        String?   @unique
+  phone        String?
+  departmentid Int?
+  title        String?
+  createdat    DateTime  @default(now())
+  updatedat    DateTime  @default(now())
+
+  tenant       Tenants    @relation(fields: [tenantid], references: [tenantid])
+  department   Departments? @relation(fields: [departmentid], references: [departmentid])
+  research     ResearchProjects[]
+  news         News[]
+}
+
+model Programs {
+  programid    Int       @id @default(autoincrement())
+  tenantid     Int
+  programname  String
+  departmentid Int?
+  description  String?
+  durationyears Int?
+  createdat    DateTime  @default(now())
+  updatedat    DateTime  @default(now())
+
+  tenant       Tenants     @relation(fields: [tenantid], references: [tenantid])
+  department   Departments? @relation(fields: [departmentid], references: [departmentid])
+}
+
+model ResearchProjects {
+  projectid    Int       @id @default(autoincrement())
+  tenantid     Int
+  projectname  String
+  description  String?
+  startdate    DateTime?
+  enddate      DateTime?
+  leaderid     Int?
+  createdat    DateTime  @default(now())
+  updatedat    DateTime  @default(now())
+
+  tenant       Tenants     @relation(fields: [tenantid], references: [tenantid])
+  leader       Lecturers?  @relation(fields: [leaderid], references: [lecturerid])
+}
+
+model News {
+  newsid       Int       @id @default(autoincrement())
+  tenantid     Int
+  title        String
+  content      String?
+  authorid     Int?
+  publisheddate DateTime? @default(now())
+  createdat    DateTime  @default(now())
+  updatedat    DateTime  @default(now())
+
+  tenant       Tenants     @relation(fields: [tenantid], references: [tenantid])
+  author       Lecturers?  @relation(fields: [authorid], references: [lecturerid])
+}
+
+model Events {
+  eventid      Int       @id @default(autoincrement())
+  tenantid     Int
+  title        String
+  description  String?
+  startdate    DateTime?
+  enddate      DateTime?
+  location     String?
+  createdat    DateTime  @default(now())
+  updatedat    DateTime  @default(now())
+
+  tenant       Tenants     @relation(fields: [tenantid], references: [tenantid])
+}
+
+model Achievements {
+  achievementid Int      @id @default(autoincrement())
+  tenantid      Int
+  title         String
+  description   String?
+  date          DateTime?
+  associatedwith String?
+  createdat     DateTime @default(now())
+  updatedat     DateTime @default(now())
+
+  tenant        Tenants @relation(fields: [tenantid], references: [tenantid])
+}
+
+model TenantAccounts {
+  accountid   Int       @id @default(autoincrement())
+  tenantid    Int?
+  username    String 
+  email       String    @unique
+  emailverified Boolean  @default(false)
+  verificationCode String?
+  verificationCodeExpiry DateTime?
+  passwordhash String
+  role        String?   @default("admin")
+  createdat   DateTime  @default(now())
+  updatedat   DateTime  @default(now())
+
+  tenant      Tenants?   @relation(fields: [tenantid], references: [tenantid])
+}
+
+model Plans {
+  planid      Int        @id @default(autoincrement())
+  planname    String
+  intro       String?
+  description String?
+  price       Decimal
+  durationmonths Int
+  htmlcontent String?   @db.Text
+  createdat   DateTime   @default(now())
+  updatedat   DateTime   @default(now())
+
+  subscriptions Subscriptions[]
+  templates     Templates[]
+}
+
+model Subscriptions {
+  subscriptionid Int       @id @default(autoincrement())
+  tenantid       Int
+  planid         Int
+  startdate      DateTime
+  enddate        DateTime
+  status         String?   @default("active")
+  createdat      DateTime  @default(now())
+  updatedat      DateTime  @default(now())
+
+  tenant         Tenants  @relation(fields: [tenantid], references: [tenantid])
+  plan           Plans    @relation(fields: [planid], references: [planid])
+  logs           SubscriptionLogs[]
+}
+
+model SubscriptionLogs {
+  logid         Int       @id @default(autoincrement())
+  subscriptionid Int
+  action        String
+  actionby      String?
+  actiondate    DateTime? @default(now())
+  notes         String?
+
+  subscription  Subscriptions @relation(fields: [subscriptionid], references: [subscriptionid])
+}
+
+model Templates {
+  templateid   Int      @id @default(autoincrement())
+  planid       Int
+  name         String
+  description  String?
+  htmlcontent  String?
+  createdat    DateTime @default(now())
+  updatedat    DateTime @default(now())
+
+  plan         Plans    @relation(fields: [planid], references: [planid])
+  tenanttemplates TenantTemplates[]
+}
+
+model TenantTemplates {
+  tenanttemplateid Int    @id @default(autoincrement())
+  tenantid         Int
+  templateid       Int?
+  name             String
+  htmlcontent      String?
+  data             Json?
+  slug             String? @unique
+  createdat        DateTime @default(now())
+  updatedat        DateTime @default(now())
+
+  tenant           Tenants   @relation(fields: [tenantid], references: [tenantid])
+  template         Templates? @relation(fields: [templateid], references: [templateid])
+}
+
+model SuperAdmin {
+  adminid     Int       @id @default(autoincrement())
+  username    String    @unique
+  email       String    @unique
+  passwordhash String
+  role        String?   @default("superadmin")
+  createdat   DateTime  @default(now())
+  updatedat   DateTime  @default(now())
+}
+

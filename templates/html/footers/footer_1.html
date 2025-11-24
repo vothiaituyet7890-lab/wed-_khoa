@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Tech Grid Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- BIẾN MÀU (ĐỒNG BỘ VỚI HEADER V2) --- */
+        :root {
+            --bg: #000000;          /* Đen tuyệt đối */
+            --border: #333333;      /* Viền xám đậm */
+            --text: #ededed;        /* Chữ trắng */
+            --text-dim: #888888;    /* Chữ mờ */
+            --accent: #8b5cf6;      /* Tím */
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #111; font-family: var(--font-main); }
+
+        /* --- FOOTER CONTAINER --- */
+        .footer-tech {
+            background-color: var(--bg);
+            border-top: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Không padding trái phải để đường kẻ chạm viền nếu muốn, 
+               hoặc giữ padding để nội dung căn giữa */
+            padding: 0 24px; 
+        }
+
+        /* --- PHẦN 1: NEWSLETTER (DẠNG COMMAND LINE) --- */
+        .footer-top {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .newsletter-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .newsletter-sub {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .cmd-input-group {
+            display: flex;
+            align-items: center;
+            background: #0a0a0a;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            width: 400px;
+            transition: border-color 0.2s;
+        }
+        .cmd-input-group:focus-within { border-color: var(--text-dim); }
+
+        .prompt { color: var(--accent); margin-right: 10px; user-select: none; }
+        
+        .cmd-input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            width: 100%;
+            outline: none;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+
+        .cmd-enter {
+            font-size: 0.7rem;
+            background: #333;
+            padding: 2px 6px;
+            border-radius: 2px;
+            color: #aaa;
+            margin-left: 8px;
+        }
+
+        /* --- PHẦN 2: GRID LINKS (CHI O KẺ) --- */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Tạo đường kẻ dọc giữa các cột */
+        .footer-col {
+            padding: 40px 24px 40px 0; /* Padding phải ít hơn để tạo khoảng cách */
+            border-right: 1px solid var(--border);
+        }
+        
+        /* Bỏ border phải của cột cuối */
+        .footer-col:last-child { border-right: none; padding-left: 24px; }
+        .footer-col:first-child { padding-left: 0; }
+
+        .col-title {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .link-list { list-style: none; }
+        
+        .link-item { margin-bottom: 12px; }
+        
+        .footer-link {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-link:hover { color: var(--accent); }
+
+        /* Badge nhỏ cho link (New/Beta) */
+        .badge-mini {
+            font-size: 0.65rem;
+            padding: 1px 5px;
+            border-radius: 3px;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+        }
+
+        /* --- PHẦN 3: SYSTEM STATUS BAR (CUỐI CÙNG) --- */
+        .status-bar {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .status-left { display: flex; gap: 20px; align-items: center; }
+        
+        .system-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #10b981; /* Xanh lá */
+            cursor: pointer;
+        }
+        .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
+
+        .server-info {
+            display: flex;
+            gap: 6px;
+        }
+        .region-code { color: var(--text); border: 1px solid #333; padding: 1px 4px; border-radius: 3px; }
+
+        .social-icons a {
+            color: var(--text-dim);
+            margin-left: 16px;
+            text-decoration: none;
+        }
+        .social-icons a:hover { color: #fff; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .footer-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .cmd-input-group { width: 100%; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-col { border-right: none; border-bottom: 1px solid var(--border); padding: 30px 0; }
+            .footer-col:nth-last-child(-n+2) { border-bottom: none; } /* Bỏ border 2 cột cuối */
+            .status-bar { flex-direction: column; gap: 10px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <footer class="footer-tech">
+        <div class="container">
+            
+            <div class="footer-top">
+                <div>
+                    <div class="newsletter-label">Đăng ký nhận tin cập nhật API</div>
+                    <div class="newsletter-sub">Nhận thông báo về các phiên bản release mới nhất.</div>
+                </div>
+                <div class="cmd-input-group">
+                    <span class="prompt">~</span>
+                    <input type="email" class="cmd-input" placeholder="nhập email của bạn...">
+                    <span class="cmd-enter">ENTER</span>
+                </div>
+            </div>
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-weight: 700; font-size: 1.1rem;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                        Khoa Platform
+                    </div>
+                    <p style="color: var(--text-dim); line-height: 1.6; margin-bottom: 20px;">
+                        Nền tảng quản lý giáo dục mã nguồn mở, tối ưu hóa cho hiệu suất cao và khả năng mở rộng.
+                    </p>
+                    <div class="col-title" style="margin-bottom: 10px;">Open Source</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.8rem;">
+                        <span style="color: var(--text-dim)">License:</span> MIT <br>
+                        <span style="color: var(--text-dim)">Version:</span> 2.4.0-beta
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <div class="col-title">SẢN PHẨM</div>
+                    <ul class="link-list">
+                        <li class="link-item"><a href="#" class="footer-link">Student Portal</a></li>
+                        <li class="link-item"><a href="#" class="footer-link">LMS System</a></li>
+                        <li class="link-item"><a href="#" class="footer-link">Research Hub <span class="badge-mini">NEW</span></a></li>
+                        <li class="link-item"><a href="#" class="footer-link">Mobile App</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <div class="col-title">DEVELOPERS</div>
+                    <ul class="link-list">
+                        <li class="link-item"><a href="#" class="footer-link">Documentation</a></li>
+                        <li class="link-item"><a href="#" class="footer-link">API Reference</a></li>
+                        <li class="link-item"><a href="#" class="footer-link">GitHub Repo</a></li>
+                        <li class="link-item"><a href="#" class="footer-link">Changelog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <div class="col-title">PHÁP LÝ</div>
+                    <ul class="link-list">
+                        <li class="link-item"><a href="#" class="footer-link">Điều khoản sử dụng</a></li>
+                        <li class="link-item"><a href="#" class="footer-link">Chính sách bảo mật</a></li>
+                        <li class="link-item"><a href="#" class="footer-link">Bảo vệ dữ liệu</a></li>
+                        <li class="link-item"><a href="#" class="footer-link">Liên hệ hỗ trợ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="status-bar">
+                <div class="status-left">
+                    <div class="system-indicator">
+                        <span class="dot"></span>
+                        All Systems Normal
+                    </div>
+                    <div class="server-info">
+                        Region: <span class="region-code">VN-HAN1</span>
+                    </div>
+                    <div class="server-info">
+                        Latency: <span class="region-code" style="color:#10b981">24ms</span>
+                    </div>
+                </div>
+
+                <div class="status-right">
+                    <span>&copy; 2025 Khoa Inc.</span>
+                    <span class="social-icons">
+                        <a href="#">TWITTER</a>
+                        <a href="#">GITHUB</a>
+                        <a href="#">DISCORD</a>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+</html>

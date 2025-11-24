@@ -1,0 +1,85 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "PostgreSQL API Tests",
+  "dateExported": "2025-11-02T12:00:00.000Z",
+  "version": "1.1",
+  "folders": [
+    {
+      "name": "Tenants",
+      "items": [
+        {
+          "name": "Get All Tenants",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/api/tenants",
+            "headers": []
+          }
+        },
+        {
+          "name": "Get Tenant by ID",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/api/tenants/1",
+            "headers": []
+          }
+        },
+        {
+          "name": "Create New Tenant",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3000/api/tenants",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "tenantname": "Test University",
+                "domain": "test.edu",
+                "email": "contact@test.edu",
+                "phone": "0123456789",
+                "address": "123 Test Street",
+                "status": "active"
+              }
+            }
+          }
+        },
+        {
+          "name": "Update Tenant",
+          "request": {
+            "method": "PUT",
+            "url": "http://localhost:3000/api/tenants/1",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": {
+                "tenantname": "Updated University",
+                "domain": "updated.edu",
+                "email": "updated@test.edu",
+                "phone": "9876543210",
+                "address": "456 Updated Street",
+                "status": "active"
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete Tenant",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:3000/api/tenants/1",
+            "headers": []
+          }
+        }
+      ]
+    }
+  ]
+}
